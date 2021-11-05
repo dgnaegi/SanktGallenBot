@@ -1,16 +1,8 @@
 import json
 from logging import error
 from telegram import Update
-from telegram.ext import Filters, MessageHandler, Updater, CommandHandler, CallbackContext
-from telegram.ext import (Updater,
-                          PicklePersistence,
-                          CommandHandler,
-                          CallbackQueryHandler,
-                          CallbackContext,
-                          ConversationHandler)
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+from telegram.ext import CallbackContext, ConversationHandler, CommandHandler, Filters, MessageHandler, Updater, CommandHandler, CallbackContext
 from common.expectations import Expectations
-
 
 from carpark.handlers import carparkDefault, carparkLocation
 
@@ -18,7 +10,7 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Willkommen beim SanktGallenBot! Für xy mach abc")
     
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Error!")
+    update.message.reply_text("Willkommen, ich bin der SanktGallenBot und helfe dir gerne mit offenen Daten 😘")
 
 def main() -> None:
     handlers = {}

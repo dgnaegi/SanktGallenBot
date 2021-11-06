@@ -2,29 +2,36 @@ from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler
 from carpark.models.carpark import CarPark
 from common.expectations import Expectations
+from common.googleMaps import getGoogleMapsLink
 from common.stgallenApi import getAPIRecords
+from common.nearestObject import getNearestObject
     
 def carparkDefault(update: Update, context: CallbackContext):
-    update.message.reply_text("Bitte sende mir dein Standort")
+    update.message.reply_text("Bitte sende mir deinen Standort")
     return Expectations.Location
 
 def carparkLocation(update: Update, context: CallbackContext):
     location = update.message.location
-    latitude = location["latitude"]
-    longitude = location["longitude"]
-    update.message.reply_text(latitude)
-    update.message.reply_text(longitude)
+    lat = location["latitude"]
+    long = location["longitude"]
     records = getAPIRecords("freie-parkplatze-in-der-stadt-stgallen-pls")
-    getCarparks(records)
+    carparks = getFreeCarParks(records)
+    nearestCarPark = getNearestObject(long, lat, carparks)
+    update.message.reply_text("Das nächste Parkhaus ist " + nearestCarPark.name + ", ist " + str(nearestCarPark.distanceInKm) + " Kilometer entfernt und verfügt über " + str(nearestCarPark.freeSpace) + " freie Plätze!")
+    googleMapsLink = getGoogleMapsLink(nearestCarPark.lat, nearestCarPark.long)
+    update.message.reply_text(googleMapsLink)
     return ConversationHandler.END
 
-def getCarparks(records):
+def getFreeCarParks(records):
+    carParks = []
     for record in records:
         long = record["geometry"]["coordinates"][0]
         lat = record["geometry"]["coordinates"][1]
         name = record["fields"]["phname"]
-        freeSpace = record["fields"]["phname"]
-        carpark = CarPark(long, lat, name, freeSpace)
-        print(carpark.long)
+        freeSpace = record["fields"]["shortfree"]
+        carPark = CarPark(long, lat, name, freeSpace)
+        if(carPark.freeSpace > 0):
+            carParks.append(carPark)
+    return carParks
 
     

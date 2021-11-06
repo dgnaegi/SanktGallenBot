@@ -3,6 +3,7 @@ class CarPark:
     lat = 0
     name = ""
     freeSpace = 0
+    distanceInKm = 0
      
     def __init__(self, long, lat, name, freeSpace):
         self.long = long

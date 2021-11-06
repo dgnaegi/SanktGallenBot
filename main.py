@@ -20,9 +20,7 @@ def help(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Die möglichen Befehle siehst du im Menu unten links.")
     update.message.reply_text("Weitere Informationen findest du auf der Projekthomepage https://sanktgallenbot.ch oder kontaktiere @ignobled")
 
-def main() -> None:
-    handlers = {}
-    
+def main() -> None:    
     with open('config.json') as data_file:
             data = json.load(data_file)
             token = data["token"]
@@ -38,28 +36,28 @@ def main() -> None:
     _handlers['carpark_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('parkhaus', carparkDefault)],
         states={
-            Expectations.Location: [MessageHandler(Filters.location, carparkLocation)],
+            Expectations.Location: [MessageHandler(Filters.location, carparkLocation), [CommandHandler('parkhaus', carparkDefault)]],
         },
         fallbacks=[CommandHandler('error', error)]
     )
     _handlers['collectionpoint_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('sammelstelle', collectionPointDefault)],
         states={
-            Expectations.Location: [MessageHandler(Filters.location, collectionPointLocation)],
+            Expectations.Location: [MessageHandler(Filters.location, collectionPointLocation), [CommandHandler('sammelstelle', collectionPointDefault)]],
         },
         fallbacks=[CommandHandler('error', error)]
     )
     _handlers['chargingstation_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('ladestation', chargingStationDefault)],
         states={
-            Expectations.Location: [MessageHandler(Filters.location, chargingStationLocation)],
+            Expectations.Location: [MessageHandler(Filters.location, chargingStationLocation), CommandHandler('ladestation', chargingStationDefault)],
         },
         fallbacks=[CommandHandler('error', error)]
     )
     _handlers['disposal_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('abfuhr', disposalDefault)],
         states={
-            Expectations.Text: [CallbackQueryHandler(disposalArea)],
+            Expectations.Text: [CallbackQueryHandler(disposalArea), CommandHandler('abfuhr', disposalDefault)],
         },
         fallbacks=[CommandHandler('error', error)]
     )

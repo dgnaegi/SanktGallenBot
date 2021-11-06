@@ -5,12 +5,10 @@ from telegram.ext import CallbackContext, ConversationHandler, CommandHandler, F
 from common.expectations import Expectations
 
 from carpark.handlers import carparkDefault, carparkLocation
-
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Willkommen beim SanktGallenBot! Für xy mach abc")
     
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Willkommen, ich bin der SanktGallenBot und helfe dir gerne mit offenen Daten 😘")
+    update.message.reply_text("Willkommen, ich bin der SanktGallenBot und helfe dir gerne weiter 😘")
+    update.message.reply_text("Unten links im Menü findest du meine Befehle")
 
 def main() -> None:
     handlers = {}

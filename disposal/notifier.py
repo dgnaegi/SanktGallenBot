@@ -1,6 +1,6 @@
 from datetime import datetime
 from helper.stgallenApi import stgallenApi
-from dataStorage.dataAccess import dataAccess
+from dataStorage.notifierDataAccess import dataAccess
 from helper.bot import bot
 import json
 

@@ -1,6 +1,5 @@
 import mysql.connector
 import json
-from dataStorage.userData import UserData
 
 class dataAccess:
     def __init__(self):
@@ -59,19 +58,6 @@ class dataAccess:
         self.mycursor.execute(query, data)      
         self.mydb.commit()        
         self.mycursor.close()
-        
-    def getUserdata(self):   
-        sql = "SELECT * FROM disposalNotificationRegistration WHERE AreaCode IS NOT NULL"
-        self.mycursor.execute(sql)   
-        rows = self.mycursor.fetchall()
-
-        userDataSets = []
-
-        for row in rows:
-            userDataSets.append(UserData(row[0],row[1]))
-
-        self.mycursor.close()
-        return userDataSets
 
 
         

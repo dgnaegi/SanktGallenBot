@@ -1,5 +1,5 @@
 # SanktGallenBot
-SanktGallenBot is a user friendly way to make open data accessible to everyone through telegram. It was initially created as part of the [Open Data Hack St.Gallen 2021](telegram.me/SanktGallenBot). We aim to create a developer and contribution friendly environment to be able to integrate further data sets quickly.
+SanktGallenBot is a user friendly way to make open data accessible to everyone. It was created as part of the [Open Data Hack St.Gallen 2021](https://opendata-hack-stgallen.devpost.com). We aim to create a developer and contribution friendly environment.
 
 https://opendata-hack-stgallen.devpost.com/
 [SanktGallenBot](telegram.me/SanktGallenBot)
@@ -13,9 +13,9 @@ https://opendata-hack-stgallen.devpost.com/
 ## Contribute
 Want to contribute? Great!
 
-Contributions are more then welcome. Please follow the structure of the project. Features stored in their own subfolders within the main directory. These features may only access themselves and the common directory. The handlers must be initialised in main.py. Schedulers such as notify.py must also be created in the main directory.
+Contributions are more then welcome. Please follow the structure of the project. Features are stored in their own subfolders within the main directory. These features may only access themselves and the common directory. The handlers must be initialised in main.py. Schedulers such as notify.py must also be created in the main directory.
 
-Don't hesistate to open an issue or a pull request.
+Don't hesistate to open an issue or to create a pull request.
 
 ## Dev Setup
 - Install Python3

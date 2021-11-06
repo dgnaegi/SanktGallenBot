@@ -2,11 +2,13 @@ import json
 from logging import error
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CommandHandler, Filters, MessageHandler, Updater, CommandHandler, CallbackContext
+from telegram.ext.callbackqueryhandler import CallbackQueryHandler
 from chargingstation.handlers import chargingStationDefault, chargingStationLocation
 from collectionpoint.handlers import collectionPointDefault, collectionPointLocation
-from common.expectations import Expectations
 
 from carpark.handlers import carparkDefault, carparkLocation
+from common.expectations import Expectations
+from disposal.handlers import disposalArea, disposalDefault, disposalStop
     
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Willkommen, ich bin der SanktGallenBot und helfe dir gerne weiter 😘")
@@ -30,6 +32,7 @@ def main() -> None:
     _handlers = {}
     _handlers['start_handler'] = CommandHandler('start', start)
     _handlers['help_handler'] = CommandHandler('help', help)
+    _handlers['help_handler'] = CommandHandler('stop', disposalStop)
     _handlers['carpark_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('parkhaus', carparkDefault)],
         states={
@@ -48,6 +51,13 @@ def main() -> None:
         entry_points=[CommandHandler('ladestation', chargingStationDefault)],
         states={
             Expectations.Location: [MessageHandler(Filters.location, chargingStationLocation)],
+        },
+        fallbacks=[CommandHandler('error', error)]
+    )
+    _handlers['disposal_conversation_handler'] = ConversationHandler(
+        entry_points=[CommandHandler('abfuhr', disposalDefault)],
+        states={
+            Expectations.Text: [CallbackQueryHandler(disposalArea)],
         },
         fallbacks=[CommandHandler('error', error)]
     )

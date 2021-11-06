@@ -2,6 +2,7 @@ import json
 from logging import error
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CommandHandler, Filters, MessageHandler, Updater, CommandHandler, CallbackContext
+from collectionpoint.handlers import collectionPointDefault, collectionPointLocation
 from common.expectations import Expectations
 
 from carpark.handlers import carparkDefault, carparkLocation
@@ -28,6 +29,13 @@ def main() -> None:
         entry_points=[CommandHandler('parkhaus', carparkDefault)],
         states={
             Expectations.Location: [MessageHandler(Filters.location, carparkLocation)],
+        },
+        fallbacks=[CommandHandler('error', error)]
+    )
+    _handlers['collectionpoint_conversation_handler'] = ConversationHandler(
+        entry_points=[CommandHandler('sammelstelle', collectionPointDefault)],
+        states={
+            Expectations.Location: [MessageHandler(Filters.location, collectionPointLocation)],
         },
         fallbacks=[CommandHandler('error', error)]
     )

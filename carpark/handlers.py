@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler
-from carpark.models.carpark import CarPark
+from common.models.dataObject import DataObject
 from common.expectations import Expectations
 from common.googleMaps import getGoogleMapsLink
 from common.stgallenApi import getAPIRecords
@@ -29,7 +29,7 @@ def getFreeCarParks(records):
         lat = record["geometry"]["coordinates"][1]
         name = record["fields"]["phname"]
         freeSpace = record["fields"]["shortfree"]
-        carPark = CarPark(long, lat, name, freeSpace)
+        carPark = DataObject(long, lat, name, freeSpace)
         if(carPark.freeSpace > 0):
             carParks.append(carPark)
     return carParks

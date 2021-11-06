@@ -1,4 +1,4 @@
-class CarPark:
+class DataObject:
     long = 0
     lat = 0
     name = ""

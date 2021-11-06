@@ -27,16 +27,16 @@ sentMessageStGallen = 0
 for userDataSet in sgUserDataSets:
   try:
     if userDataSet.areaCode in tomorrowSGPaperDisposalAreaCodes and datetime.now().hour > 12:
-      messageBot.SendMessage(userDataSet.chatId, "Paper disposal will be tomorrow!")
+      messageBot.SendMessage(userDataSet.chatId, "Morgen ist Papierabfuhr!")
       sentMessageStGallen = sentMessageStGallen + 1
     if userDataSet.areaCode in todaySGPaperDisposalAreaCodes and datetime.now().hour < 12:
-      messageBot.SendMessage(userDataSet.chatId, "Paper disposal is today!") 
+      messageBot.SendMessage(userDataSet.chatId, "Heute ist Papierabfuhr!") 
       sentMessageStGallen = sentMessageStGallen + 1
     if userDataSet.areaCode in tomorrowSGCardboardDisposalAreaCodes and datetime.now().hour > 12:
-      messageBot.SendMessage(userDataSet.chatId, "Cardboard disposal will be tomorrow!")
+      messageBot.SendMessage(userDataSet.chatId, "Morgen ist Kartonabfuhr!")
       sentMessageStGallen = sentMessageStGallen + 1
     if userDataSet.areaCode in todaySGCardboardDisposalAreaCodes and datetime.now().hour < 12:
-      messageBot.SendMessage(userDataSet.chatId, "Cardboard disposal is today!") 
+      messageBot.SendMessage(userDataSet.chatId, "Heute ist Kartonabfuhr!") 
       sentMessageStGallen = sentMessageStGallen + 1
   except:
     logf.write("An exception occurred for Area: " + str(userDataSet.areaCode) + "\r\n")

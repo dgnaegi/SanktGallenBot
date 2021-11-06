@@ -1,10 +1,10 @@
 from datetime import datetime
-from helper.stgallenApi import stgallenApi
-from dataStorage.notifierDataAccess import dataAccess
-from helper.bot import bot
+from disposal.dataStorage.dataAccess import dataAccess
+from disposal.helper.stgallenApi import stgallenApi
+from disposal.helper.bot import bot
 import json
 
-with open('../config.json') as data_file:    
+with open('config.json') as data_file:    
     data = json.load(data_file)
     token = data["token"]
 

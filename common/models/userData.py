@@ -1,4 +1,4 @@
-class UserData:
+class UserDataSet:
     chatId = ""
     areaCode = ""
      

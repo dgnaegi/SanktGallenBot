@@ -2,9 +2,9 @@ from telegram import Update
 from telegram.ext import CallbackContext
 from telegram.ext.conversationhandler import ConversationHandler
 from common.expectations import Expectations
+from common.models.userData import UserDataSet
 from disposal.dataStorage.dataAccess import dataAccess
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from disposal.dataStorage.userData import UserData
     
 def disposalDefault(update: Update, context: CallbackContext):
     chatId = update.message.chat_id
@@ -25,7 +25,7 @@ def disposalArea(update: Update, context: CallbackContext):
     areaCode = args[0]
     chatId = args[1]
     
-    userData = UserData(chatId, areaCode)
+    userData = UserDataSet(chatId, areaCode)
     dataAccessObject = dataAccess()
     success = dataAccess.saveUserData(dataAccessObject, userData)
     if success:

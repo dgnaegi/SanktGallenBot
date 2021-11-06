@@ -1,6 +1,8 @@
 import mysql.connector
 import json
 
+from common.models.userData import UserDataSet
+
 class dataAccess:
     def __init__(self):
         with open('config.json') as data_file:    
@@ -18,9 +20,9 @@ class dataAccess:
         
         self.mycursor = self.mydb.cursor()
                
-    def saveUserData(self, UserData):
+    def saveUserData(self, userData):
         query = "SELECT * FROM disposalNotificationRegistration WHERE ChatId = %s"    
-        data = (UserData.chatId,)       
+        data = (userData.chatId,)       
         self.mycursor.execute(query, data) 
         rows = self.mycursor.fetchall()
 
@@ -28,7 +30,7 @@ class dataAccess:
             return False
 
         sql = "INSERT INTO disposalNotificationRegistration (ChatId, AreaCode) VALUES (%s, %s)"
-        val = (UserData.chatId, UserData.areaCode)
+        val = (userData.chatId, userData.areaCode)
         self.mycursor.execute(sql, val)    
         self.mydb.commit()
 
@@ -39,7 +41,7 @@ class dataAccess:
             self.mycursor.close()
             return False
 
-    def getUserdata(self):  
+    def getUserdata(self):   
         sql = "SELECT * FROM disposalNotificationRegistration WHERE AreaCode IS NOT NULL"
         self.mycursor.execute(sql)   
         rows = self.mycursor.fetchall()
@@ -47,7 +49,7 @@ class dataAccess:
         userDataSets = []
 
         for row in rows:
-            userDataSets.append(UserData(row[0],row[1]))
+            userDataSets.append(UserDataSet(row[0],row[1]))
 
         self.mycursor.close()
         return userDataSets

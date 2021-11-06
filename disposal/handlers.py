@@ -5,13 +5,10 @@ from common.expectations import Expectations
 from disposal.dataStorage.dataAccess import dataAccess
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from disposal.dataStorage.userData import UserData
-
-from disposal.helper.areaCodeParser import areaCodeParser
-
     
 def disposalDefault(update: Update, context: CallbackContext):
     chatId = update.message.chat_id
-    disposalAreas = {"A (Winkeln)": "A-" + str(chatId), "B (Lachen)": "B-" + str(chatId), "C (Rosenberg)": "C-" + str(chatId), "D (Rotmonten)": "D-" + str(chatId), "E (Bruggen/Riethüsli)": "E-" + str(chatId), "F (St.Georgen/Notkersegg)": "F-" + str(chatId), "G (Heiligkreuz)": "G-" + str(chatId), "H (Stephanshorn)": "H-" + str(chatId), "I (St.Fiden)": "I-" + str(chatId), "K (Neudorf)": "K-" + str(chatId), "L-OST (Innenstadt Ost)": "L-OST-" + str(chatId), "L WEST (Innenstadt West)": "L WEST-" + str(chatId)}
+    disposalAreas = {"A (Winkeln)": "A:" + str(chatId), "B (Lachen)": "B:" + str(chatId), "C (Rosenberg)": "C:" + str(chatId), "D (Rotmonten)": "D:" + str(chatId), "E (Bruggen/Riethüsli)": "E:" + str(chatId), "F (St.Georgen/Notkersegg)": "F:" + str(chatId), "G (Heiligkreuz)": "G:" + str(chatId), "H (Stephanshorn)": "H:" + str(chatId), "I (St.Fiden)": "I:" + str(chatId), "K (Neudorf)": "K:" + str(chatId), "L-OST (Innenstadt Ost)": "L OST:" + str(chatId), "L-WEST (Innenstadt West)": "L WEST:" + str(chatId)}
 
     keyboards = []
     for key, value in disposalAreas.items():
@@ -24,10 +21,11 @@ def disposalDefault(update: Update, context: CallbackContext):
 def disposalArea(update: Update, context: CallbackContext):
     query = update.callback_query
     query.answer()
-    args = query.data.split("-")
+    args = query.data.split(":")
+    print(args[0])
     areaCode = args[0]
     chatId = args[1]
-    areaCode = areaCodeParser.Parse(areaCode)
+    print(areaCode)
     
     userData = UserData(chatId, areaCode)
     dataAccessObject = dataAccess()

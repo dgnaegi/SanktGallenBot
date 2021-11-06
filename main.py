@@ -16,7 +16,9 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Für weitere Infos klicke hier: /help")
     
 def help(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Hilfe muss noch angepasst werden")
+    update.message.reply_text("Dieser Bot wurde inital im Rahmen des Open Data Hack St.Gallen 2021 erstellt. Er hilft dir öffentliche Daten zu beziehen.")
+    update.message.reply_text("Die möglichen Befehle siehst du im Menu unten links.")
+    update.message.reply_text("Weitere Informationen findest du auf der Projekthomepage https://devpost.com/software/sanktgallenbot oder kontaktiere @ignobled")
 
 def main() -> None:
     handlers = {}
@@ -32,7 +34,7 @@ def main() -> None:
     _handlers = {}
     _handlers['start_handler'] = CommandHandler('start', start)
     _handlers['help_handler'] = CommandHandler('help', help)
-    _handlers['help_handler'] = CommandHandler('stop', disposalStop)
+    _handlers['disposal_stop'] = CommandHandler('stop', disposalStop)
     _handlers['carpark_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('parkhaus', carparkDefault)],
         states={

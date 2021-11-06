@@ -2,6 +2,7 @@ import json
 from logging import error
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CommandHandler, Filters, MessageHandler, Updater, CommandHandler, CallbackContext
+from chargingstation.handlers import chargingStationDefault, chargingStationLocation
 from collectionpoint.handlers import collectionPointDefault, collectionPointLocation
 from common.expectations import Expectations
 
@@ -36,6 +37,13 @@ def main() -> None:
         entry_points=[CommandHandler('sammelstelle', collectionPointDefault)],
         states={
             Expectations.Location: [MessageHandler(Filters.location, collectionPointLocation)],
+        },
+        fallbacks=[CommandHandler('error', error)]
+    )
+    _handlers['chargingstation_conversation_handler'] = ConversationHandler(
+        entry_points=[CommandHandler('ladestation', chargingStationDefault)],
+        states={
+            Expectations.Location: [MessageHandler(Filters.location, chargingStationLocation)],
         },
         fallbacks=[CommandHandler('error', error)]
     )

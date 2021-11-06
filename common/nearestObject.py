@@ -8,6 +8,7 @@ def getNearestObject(long, lat, datasets):
         referencePosition = (long, lat)
         dataset.distanceInKm = round(distance(dataSetPosition, referencePosition).km, 2)
         if(dataset.distanceInKm < minDistance):
+            minDistance = dataset.distanceInKm
             nearestObject = dataset
-        
+            
     return nearestObject

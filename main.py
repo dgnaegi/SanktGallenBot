@@ -18,7 +18,7 @@ def start(update: Update, context: CallbackContext) -> None:
 def help(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Dieser Bot wurde inital im Rahmen des Open Data Hack St.Gallen 2021 erstellt. Er hilft dir öffentliche Daten zu beziehen.")
     update.message.reply_text("Die möglichen Befehle siehst du im Menu unten links.")
-    update.message.reply_text("Weitere Informationen findest du auf der Projekthomepage https://devpost.com/software/sanktgallenbot oder kontaktiere @ignobled")
+    update.message.reply_text("Weitere Informationen findest du auf der Projekthomepage https://sanktgallenbot.ch oder kontaktiere @ignobled")
 
 def main() -> None:
     handlers = {}

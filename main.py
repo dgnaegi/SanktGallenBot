@@ -11,10 +11,13 @@ from carpark.handlers import carparkDefault, carparkLocation
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Willkommen, ich bin der SanktGallenBot und helfe dir gerne weiter 😘")
     update.message.reply_text("Unten links im Menü findest du meine Befehle")
+    update.message.reply_text("Für weitere Infos klicke hier: /help")
+    
+def help(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text("Hilfe muss noch angepasst werden")
 
 def main() -> None:
     handlers = {}
-    handlers['start_handler'] = CommandHandler('start', start)
     
     with open('config.json') as data_file:
             data = json.load(data_file)
@@ -26,6 +29,7 @@ def main() -> None:
         
     _handlers = {}
     _handlers['start_handler'] = CommandHandler('start', start)
+    _handlers['help_handler'] = CommandHandler('help', help)
     _handlers['carpark_conversation_handler'] = ConversationHandler(
         entry_points=[CommandHandler('parkhaus', carparkDefault)],
         states={

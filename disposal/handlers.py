@@ -22,10 +22,8 @@ def disposalArea(update: Update, context: CallbackContext):
     query = update.callback_query
     query.answer()
     args = query.data.split(":")
-    print(args[0])
     areaCode = args[0]
     chatId = args[1]
-    print(areaCode)
     
     userData = UserData(chatId, areaCode)
     dataAccessObject = dataAccess()

@@ -1,0 +1,7 @@
+{
+    "host": "localhost",
+    "databaseName": "sanktBot",
+    "databaseUser": "root",
+    "databasePassword": "yourpassword",
+    "token": "yourtoken"
+}
